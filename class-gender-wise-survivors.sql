@@ -18,3 +18,14 @@ round(100 * sum(Survived)/count(*),2) `% survivors`
 /* round(avg(Fare),2) fare */
 from train
 group by 1, 2 with rollup;
+
+select case when age < 15 then 'children'
+			when sex = 'male' then 'men'
+	        when sex = 'female' then 'women'
+end category, 
+case when pclass = 1 then '1st class'
+	 when pclass = 2 then '2nd class'
+     when pclass = 3 then '3rd class'
+end class, sum(Survived) survived, count(*) total,
+round(100 * sum(Survived)/count(*),2) `% survived`
+from train group by 1, 2;
